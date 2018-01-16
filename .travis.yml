@@ -22,11 +22,15 @@ matrix:
   fast_finish: true
   include:
     -
-      env: CHECK=rubocop
-    -
       env: CHECK="syntax lint"
     -
       env: CHECK=metadata_lint
+    - rvm: 2.4.1
+      sudo: required
+      services: docker
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/centos-6
+      script: bundle exec rake beaker
+      bundler_args: --with acceptance
     - rvm: 2.4.1
       sudo: required
       services: docker

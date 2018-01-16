@@ -12,7 +12,7 @@ describe 'Do RedHat stuff' do
         # Install Wildfly 8
         wildfly::install { 'wildfly8':
           catalina_home => '/opt/wildfly8',
-          source        => 'http://download.jboss.org/wildfly/8.2.1.Final/wildfly-8.2.1.Final.tar.gz'
+          source        => 'http://download.jboss.org/wildfly/8.2.1.Final/wildfly-8.2.1.Final.tar.gz',
           checksum      => '845bc298ef9d72cf91b8781286a64554dea353df9d555391720635f32b73717c',
         }
         wildfly::instance { 'wildfly8':
@@ -114,7 +114,7 @@ describe 'Do RedHat stuff' do
           port_properties => { 'management-http' => 49990, 'management-https' => 49993, 'ajp' => 48009, 'http' => 48080, 'https' => 48443, },
         }
         wildfly::config::module { 'org.postgresql:/opt/wildfly11':
-          source       => 'https://jdbc.postgresql.org/download/postgresql-42.1.4.jar'
+          source       => 'https://jdbc.postgresql.org/download/postgresql-42.1.4.jar',
           checksum     => '4523ed32e9245e762e1df9f0942a147bece06561770a9195db093d9802297735',
           dependencies => ['javax.api', 'javax.transaction.api']
         }
