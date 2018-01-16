@@ -1,0 +1,4 @@
+2017-11-13 Release 0.1.0
+- Initial release of the module WildFly for the Puppet Forge
+- Based on biemond-wildfly and puppetlabs-tomcat
+- No way is this module complete or perfect
