@@ -1,0 +1,11 @@
+# The configuration you want to run
+WILDFLY_CONFIG=standalone.xml
+
+# The mode you want to run
+WILDFLY_MODE=standalone
+
+## Location of WildFly
+JBOSS_HOME="<%= $catalina_home %>"
+
+## The username who should own the process.
+JBOSS_USER="<%= $user %>"
