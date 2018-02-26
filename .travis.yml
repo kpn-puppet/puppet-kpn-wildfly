@@ -34,7 +34,7 @@ matrix:
     - rvm: 2.4.1
       sudo: required
       services: docker
-      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/centos-7
+      env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/centos-7 DEPLOY_TO_FORGE=yes
       script: bundle exec rake beaker
       bundler_args: --with acceptance
 branches:
