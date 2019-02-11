@@ -1,3 +1,6 @@
+2019-02-11 Release 1.0.1
+- Fix error in instance.pp, the order was wrong for ip_properties.each
+
 2018-03-16 Release 1.0.0
 - Move to version 1.0.0
 - Support for Puppet 5

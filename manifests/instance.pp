@@ -65,7 +65,7 @@ define wildfly::instance (
     }
   }
   if $ip_properties {
-    $ip_properties.each |$_ip_address,$_ip_type| {
+    $ip_properties.each |$_ip_type,$_ip_address| {
       wildfly::config::interface { "${_catalina_home} ${_ip_type} standalone.xml":
         catalina_home => $_catalina_home,
         ip_address    => $_ip_address,
