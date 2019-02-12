@@ -65,11 +65,11 @@ define wildfly::instance (
     }
   }
   if $ip_properties {
-    $ip_properties.each |$_ip_address,$_ip_type| {
-      wildfly::config::interface { "${_catalina_home} ${_ip_type} standalone.xml":
+    $ip_properties.each |$_interface,$_ip_address| {
+      wildfly::config::interface { "${_catalina_home} ${_interface} standalone.xml":
         catalina_home => $_catalina_home,
         ip_address    => $_ip_address,
-        ip_type       => $_ip_type,
+        interface     => $_interface,
       }
     }
   }

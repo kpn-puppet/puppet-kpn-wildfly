@@ -39,7 +39,7 @@ describe 'wildfly::datasources::driver', :type => :define, :unless => RUBY_PLATF
           driver_xa_datasource_class_name: 'org.postgresql.xa.PGXADataSource',
         }}
         it { is_expected.to contain_Wildfly__Resource('/subsystem=datasources/jdbc-driver=postgresql:/opt/wildfly10') }
-        it { is_expected.to contain_Wildfly_resource('/subsystem=datasources/jdbc-driver=postgresql/opt/wildfly10') }
+        it { is_expected.to contain_Wildfly_resource('/subsystem=datasources/jdbc-driver=postgresql:/opt/wildfly10') }
       end
     end
   end
@@ -55,7 +55,7 @@ describe 'wildfly::datasources::datasource', :type => :define, :unless => RUBY_P
       let(:title) { 'DemoDS:/opt/wildfly10' }
       context "on #{f['os']['family']} #{f['os']['release']['major']} with defaults" do
         it { is_expected.to contain_Wildfly__Resource('/subsystem=datasources/data-source=DemoDS:/opt/wildfly10') }
-        it { is_expected.to contain_Wildfly_resource('/subsystem=datasources/data-source=DemoDS/opt/wildfly10') }
+        it { is_expected.to contain_Wildfly_resource('/subsystem=datasources/data-source=DemoDS:/opt/wildfly10') }
         it { is_expected.to contain_Wildfly__Cli('Enable DemoDS for /opt/wildfly10') }
         it { is_expected.to contain_Wildfly_cli('Enable DemoDS for /opt/wildfly10') }
       end

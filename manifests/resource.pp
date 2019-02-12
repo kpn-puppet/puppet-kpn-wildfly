@@ -33,7 +33,7 @@ define wildfly::resource(
     $attributes = delete_undef_values($content)
   }
 
-  wildfly_resource { "${profile_path}${resource}${catalina_home}":
+  wildfly_resource { "${profile_path}${resource}:${catalina_home}":
     ensure            => $ensure,
     path              => "${profile_path}${resource}",
     username          => $mgmt_user['username'],
