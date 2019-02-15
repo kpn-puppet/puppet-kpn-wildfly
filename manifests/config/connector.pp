@@ -10,7 +10,6 @@ define wildfly::config::connector (
   if versioncmp($::facts['augeasversion'], '1.0.0') < 0 {
     fail('Server configurations require Augeas >= 1.0.0')
   }
-
   augeas { "${catalina_home} ${connector_name}":
     context => "/files/${catalina_home}/standalone/configuration/standalone.xml",
     lens    => 'Xml.lns',

@@ -1,8 +1,8 @@
 # set the interfaces
 define wildfly::config::interface (
-  Stdlib::Unixpath               $catalina_home,
-  Stdlib::Compat::Ip_address     $ip_address,
-  Enum['management','public']    $interface,
+  Stdlib::Unixpath                       $catalina_home,
+  Stdlib::Compat::Ip_address             $ip_address,
+  Enum['management','public','unsecure'] $interface,
 ) {
 
   tag(sha1($catalina_home))

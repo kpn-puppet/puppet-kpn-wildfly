@@ -7,9 +7,11 @@ define wildfly::instance (
   Optional[Boolean]          $manage_user            = undef,
   Optional[Boolean]          $manage_group           = undef,
   Optional[Boolean]          $manage_service         = true,
+  Optional[Hash[Enum['jacorb','jacorb-ssl'], Integer[1024]]]
+    $jacorb_port_properties                          = undef,
   Optional[Hash[Enum['management-http','management-https','ajp','http','https'], Integer[1024]]]
     $port_properties                                 = undef,
-  Optional[Hash[Enum['management','public'], Stdlib::Compat::Ip_address]]
+  Optional[Hash[Enum['management','public','unsecure'], Stdlib::Compat::Ip_address]]
     $ip_properties                                   = undef,
   Optional[Stdlib::Unixpath] $java_home              = undef,
   Optional[String]           $java_opts              = undef,
@@ -57,6 +59,25 @@ define wildfly::instance (
   }
   if $port_properties {
     $port_properties.each |$_connector_name,$_connector_port| {
+      wildfly::config::connector { "${_catalina_home} ${_connector_name} standalone.xml":
+        catalina_home  => $_catalina_home,
+        connector_name => $_connector_name,
+        connector_port => $_connector_port,
+      }
+    }
+  }
+  if $jacorb_port_properties {
+    $jacorb_port_properties.each |$_connector_name,$_connector_port| {
+      # be sure jacorb socket-bindings exists on interface unsecure in standalone.conf
+      augeas { "add_${catalina_home} ${_connector_name}":
+        context => "/files/${catalina_home}/standalone/configuration/standalone.xml",
+        lens    => 'Xml.lns',
+        incl    => "${catalina_home}/standalone/configuration/standalone.xml",
+        changes => [
+          "set server/socket-binding-group/socket-binding[#attribute/name=\"${_connector_name}\"]/#attribute/name ${_connector_name}",
+          "set server/socket-binding-group/socket-binding[#attribute/name=\"${_connector_name}\"]/#attribute/interface unsecure",
+        ],
+      }
       wildfly::config::connector { "${_catalina_home} ${_connector_name} standalone.xml":
         catalina_home  => $_catalina_home,
         connector_name => $_connector_name,

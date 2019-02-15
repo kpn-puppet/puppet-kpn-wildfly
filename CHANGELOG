@@ -1,3 +1,6 @@
+2019-02-15 Release 1.2.0
+- add support for jacorb socket bindings
+
 2019-02-11 Release 1.1.0
 - add security domains
 - add port properties
