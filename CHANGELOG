@@ -1,3 +1,6 @@
+2019-03-25 Release 1.2.1
+- fix support for unsecure interface in wildfly version 10
+
 2019-02-15 Release 1.2.0
 - add support for jacorb socket bindings
 
