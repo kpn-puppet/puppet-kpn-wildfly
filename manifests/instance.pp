@@ -66,6 +66,26 @@ define wildfly::instance (
       }
     }
   }
+  if $ip_properties {
+    $ip_properties.each |$_interface,$_ip_address| {
+      # be sure interface insecure exists in standalone.xml
+      if $_interface == 'unsecure' {
+        augeas { "add_${catalina_home} ${_interface}":
+          context => "/files/${catalina_home}/standalone/configuration/standalone.xml",
+          lens    => 'Xml.lns',
+          incl    => "${catalina_home}/standalone/configuration/standalone.xml",
+          changes => [
+            "set server/interfaces/interface[#attribute/name=\"${_interface}\"]/#attribute/name ${_interface}",
+          ],
+        }
+      }
+      wildfly::config::interface { "${_catalina_home} ${_interface} standalone.xml":
+        catalina_home => $_catalina_home,
+        ip_address    => $_ip_address,
+        interface     => $_interface,
+      }
+    }
+  }
   if $jacorb_port_properties {
     $jacorb_port_properties.each |$_connector_name,$_connector_port| {
       # be sure jacorb socket-bindings exists on interface unsecure in standalone.conf
@@ -82,15 +102,6 @@ define wildfly::instance (
         catalina_home  => $_catalina_home,
         connector_name => $_connector_name,
         connector_port => $_connector_port,
-      }
-    }
-  }
-  if $ip_properties {
-    $ip_properties.each |$_interface,$_ip_address| {
-      wildfly::config::interface { "${_catalina_home} ${_interface} standalone.xml":
-        catalina_home => $_catalina_home,
-        ip_address    => $_ip_address,
-        interface     => $_interface,
       }
     }
   }
